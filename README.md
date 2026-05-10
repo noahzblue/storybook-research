@@ -32,7 +32,24 @@ bbc-reference/       ← Raw research notes — component-by-component deep dive
   Feedback.md        ← Feedback / Status
 ```
 
-## How to Use
+## Using with AI (Claude Code Skill)
+
+A Claude Code skill is available that automatically loads the right guide files for your task.
+
+**Install:**
+1. Copy `skill/storybook-guide/SKILL.md` into your `~/.claude/skills/storybook-guide/SKILL.md`
+2. Update the **Vault** path inside the skill to match where you cloned this repo
+
+**How it works:**
+Once installed, Claude will automatically invoke the skill whenever you ask it to write, add, or audit Storybook stories. It routes to the correct guide based on your task and applies a story creation checklist.
+
+**Trigger phrases:** "add stories to X", "write Storybook stories", "how many stories should this have", "audit these stories", "add play() tests"
+
+**Manual use (without AI):** See the routing table below.
+
+---
+
+## How to Use Manually
 
 **Starting from scratch:** Read `01` → `02` → `09` in order. Then reference the others as needed.
 
@@ -43,6 +60,21 @@ bbc-reference/       ← Raw research notes — component-by-component deep dive
 **Adding play() tests:** `07`.
 
 **Framework syntax:** All guide files use framework-agnostic pseudocode for story definitions. See `00 - Framework Examples` for React CSF3 and Svelte CSF concrete implementations.
+
+**Task → Guide quick reference:**
+
+| Task | Guide |
+|------|-------|
+| Starting from scratch | 01, 02, 09 |
+| Story vs knob decision | 01 |
+| How many stories? | 09 |
+| argTypes / controls | 04 |
+| Docs copy | 03 |
+| Actions / callbacks | 05 |
+| play() interaction tests | 07 |
+| Accessibility | 06 |
+| Theming / dark mode | 08 |
+| React CSF3 or Svelte CSF syntax | 00 |
 
 ## Key Questions This Answers
 
