@@ -57,15 +57,14 @@ Exception: if a variant story exists specifically to demonstrate an interaction 
 
 ```tsx
 // Option A: Per-story args (explicit)
-export const Default: Story = {
-  args: {
-    onClick: action('onClick'),
-    onChange: action('onChange'),
-  }
+// Story: "Default" — see Guide 00 for framework story wrapper syntax
+args: {
+  onClick: action('onClick'),
+  onChange: action('onChange'),
 }
 
 // Option B: Auto-detect from argTypes (cleaner for many callbacks)
-const meta: Meta = {
+meta = {
   argTypes: {
     onClick: { action: 'onClick' },
     onChange: { action: 'onChange' },

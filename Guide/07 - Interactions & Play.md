@@ -36,18 +36,16 @@ tags:
 
 If the end state is reachable via `args`, **use args** — not play():
 
-```tsx
-// Don't do this:
-export const Open: Story = {
-  play: async ({ canvasElement }) => {
-    await userEvent.click(canvas.getByRole('button', { name: 'Open' }));
-  }
+```js
+// Don't do this — see Guide 00 for framework story wrapper syntax
+// Story: "Open"
+play: async ({ canvasElement }) => {
+  await userEvent.click(canvas.getByRole('button', { name: 'Open' }));
 }
 
 // Do this instead:
-export const Open: Story = {
-  args: { open: true }  // if the component has an `open` prop
-}
+// Story: "Open"
+args: { open: true }  // if the component has an `open` prop
 ```
 
 play() is for states you **can't reach with props**. If you can show it with args, do that.
@@ -56,27 +54,26 @@ play() is for states you **can't reach with props**. If you can show it with arg
 
 ## play() Anatomy
 
-```tsx
+```js
 import { within, userEvent, expect } from 'storybook/test';
 
-export const FormSubmission: Story = {
-  play: async ({ canvasElement, step }) => {
-    const canvas = within(canvasElement);   // scope queries to this story
+// Story: "Form Submission" — see Guide 00 for framework story wrapper syntax
+play: async ({ canvasElement, step }) => {
+  const canvas = within(canvasElement);   // scope queries to this story
 
-    await step('Fill the form', async () => {
-      await userEvent.type(canvas.getByLabelText('Email'), 'user@example.com');
-      await userEvent.type(canvas.getByLabelText('Password'), 'secret');
-    });
+  await step('Fill the form', async () => {
+    await userEvent.type(canvas.getByLabelText('Email'), 'user@example.com');
+    await userEvent.type(canvas.getByLabelText('Password'), 'secret');
+  });
 
-    await step('Submit', async () => {
-      await userEvent.click(canvas.getByRole('button', { name: 'Sign In' }));
-    });
+  await step('Submit', async () => {
+    await userEvent.click(canvas.getByRole('button', { name: 'Sign In' }));
+  });
 
-    await step('Verify success state', async () => {
-      await expect(canvas.getByText('Welcome back!')).toBeVisible();
-    });
-  }
-};
+  await step('Verify success state', async () => {
+    await expect(canvas.getByText('Welcome back!')).toBeVisible();
+  });
+}
 ```
 
 Key rules:
@@ -90,40 +87,38 @@ Key rules:
 ## Common Interaction Patterns
 
 ### Open/Close Overlay
-```tsx
+```js
 // Option A: Always-open via args (visual doc — simplest)
-export const Open: Story = { args: { open: true } }
+// Story: "Open"
+args: { open: true }
 
 // Option B: play() test (verifies the trigger mechanism works)
-export const OpensOnTriggerClick: Story = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await userEvent.click(canvas.getByRole('button', { name: 'Open Modal' }));
-    await expect(canvas.getByRole('dialog')).toBeVisible();
-  }
+// Story: "Opens on Trigger Click"
+play: async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await userEvent.click(canvas.getByRole('button', { name: 'Open Modal' }));
+  await expect(canvas.getByRole('dialog')).toBeVisible();
 }
 ```
 
 Use Option A for visual documentation. Use Option B to test the trigger.
 
 ### Form Validation Error
-```tsx
-export const ShowsValidationError: Story = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await userEvent.click(canvas.getByRole('button', { name: 'Submit' }));
-    await expect(canvas.getByText('Email is required')).toBeVisible();
-  }
+```js
+// Story: "Shows Validation Error"
+play: async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await userEvent.click(canvas.getByRole('button', { name: 'Submit' }));
+  await expect(canvas.getByText('Email is required')).toBeVisible();
 }
 ```
 
 ### Focus State
-```tsx
-export const Focused: Story = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await canvas.getByRole('button').focus();
-  }
+```js
+// Story: "Focused"
+play: async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await canvas.getByRole('button').focus();
 }
 ```
 
@@ -140,8 +135,8 @@ Name by the flow being tested, not the mechanism:
 
 ---
 
-## BBC iPlayer Usage (or Absence)
+## Pre-play() Storybooks (v6 and earlier)
 
-BBC's Storybook was v5/v6 — the play() API didn't exist yet. They handled overlay state (Modal) by rendering always-open via a hardcoded open state — **Option A** above. This is still a valid approach for visual documentation.
+play() was introduced in Storybook v7. Older codebases handled overlay state (Modal, Dialog) by rendering always-open via a hardcoded `open: true` arg — **Option A** above. This is still a valid approach for visual documentation even in v7+.
 
-Modern Storybook (v7+) supports play(). Use it when you need to test interactive flows, not just static states.
+Use play() when you need to **verify an interactive flow**, not just document a visual state.

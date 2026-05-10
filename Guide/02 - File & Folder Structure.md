@@ -101,8 +101,9 @@ Default to CSF + `tags: ['autodocs']`. Only reach for MDX when you need things a
 
 Document component ownership in story metadata:
 
-```tsx
-const meta: Meta<typeof Button> = {
+```js
+// meta-level config — see Guide 00 for React/Svelte syntax
+meta = {
   component: Button,
   parameters: {
     docs: {

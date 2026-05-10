@@ -70,11 +70,10 @@ Never disable rules globally without a documented reason per-rule.
 
 Override a11y config at story level (not globally) when a specific story has known exceptions:
 
-```tsx
-export const DecorativeIcon: Story = {
-  parameters: {
-    a11y: { config: { rules: [{ id: 'color-contrast', enabled: false }] } }
-  }
+```js
+// Story: "Decorative Icon" — see Guide 00 for framework story wrapper syntax
+parameters: {
+  a11y: { config: { rules: [{ id: 'color-contrast', enabled: false }] } }
 }
 ```
 

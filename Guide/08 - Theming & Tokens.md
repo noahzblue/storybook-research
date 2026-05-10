@@ -40,10 +40,9 @@ parameters: {
 ```
 
 Story-level override for components that only make sense on a specific background:
-```tsx
-export const OnDarkBackground: Story = {
-  parameters: { themes: { default: 'Dark' } }
-}
+```js
+// Story: "On Dark Background" — see Guide 00 for framework story wrapper syntax
+parameters: { themes: { default: 'Dark' } }
 ```
 
 ---
@@ -86,13 +85,12 @@ This makes valid values visible at a glance. Union type syntax: `"value1" | "val
 
 When a variant story demonstrates a specific token, hardcode it in the story args — don't expose it as a control:
 
-```tsx
-// "Live" variant — hardcoded theme, no control
-export const Live: Story = {
-  args: {
-    progress: 20,
-    indicatorTheme: 'live',   // ← hardcoded, not in argTypes
-  }
+```js
+// Story: "Live" — hardcoded theme, no control
+// See Guide 00 for framework story wrapper syntax
+args: {
+  progress: 20,
+  indicatorTheme: 'live',   // ← hardcoded, not in argTypes
 }
 ```
 

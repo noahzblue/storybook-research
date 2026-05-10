@@ -62,18 +62,16 @@ Defaults in the **default story** should represent the most common production co
 
 ## argTypes Configuration Patterns
 
-```tsx
-// Rename a prop in Controls panel (without changing the actual prop name)
+```js
+// argTypes config — identical across all frameworks (see Guide 00 for story wrapper syntax)
 argTypes: {
-  children: { name: 'Button Text' },
-  progress: { control: { type: 'range', min: 0, max: 100, step: 1 } },
-  indicatorTheme: {
-    control: 'select',
-    options: ['default', 'live', 'neutral', 'themed'],
-  },
+  // Rename a prop in Controls panel (without changing the actual prop name)
+  children:       { name: 'Button Text' },
+  progress:       { control: { type: 'range', min: 0, max: 100, step: 1 } },
+  indicatorTheme: { control: 'select', options: ['default', 'live', 'neutral', 'themed'] },
   // Hide a prop from controls entirely
   onClick: { table: { disable: true } },
-  setRef: { table: { disable: true } },
+  setRef:  { table: { disable: true } },
 }
 ```
 
@@ -83,9 +81,9 @@ argTypes: {
 
 Variant story args inherit from the default story's `args` (via meta-level args). Override only what differs:
 
-```tsx
-// meta-level args (shared across all stories)
-const meta = {
+```js
+// meta-level args (shared across all stories) — see Guide 00 for framework syntax
+meta = {
   args: {
     children: 'iPlayer',
     icon: 'play',
@@ -93,10 +91,9 @@ const meta = {
   }
 };
 
-// Variant only needs its discriminating change
-export const Disabled: Story = {
-  args: { disabled: true }  // inherits icon, primary, children from meta
-};
+// Variant story — only the discriminating change needed
+// Story: "Disabled"
+args: { disabled: true }  // inherits icon, primary, children from meta
 ```
 
 ---
@@ -116,16 +113,16 @@ The knob set IS the design spec. Absence encodes guidance just as much as presen
 
 For layout/container components, add a story-level arg that controls how many children are generated — not a component prop:
 
-```tsx
+```js
 // Story arg — not a component prop
 args: { numberOfItems: 8 }
 
 // Story template uses it to generate children
-render: (args) => ({
-  Component: Grid,
-  props: { itemsPerRow: args.itemsPerRow },
-  // Generate N ContentItem children from args.numberOfItems
-})
+// (render/template syntax varies by framework — see Guide 00)
+template(args) {
+  render Grid with itemsPerRow=args.itemsPerRow
+  generate args.numberOfItems children
+}
 ```
 
 Name it clearly to distinguish from actual props: `"Number of items"`, not `"items"`.
