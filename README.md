@@ -37,8 +37,13 @@ bbc-reference/       ← Raw research notes — component-by-component deep dive
 A Claude Code skill is available that automatically loads the right guide files for your task.
 
 **Install:**
-1. Copy `skill/storybook-guide/SKILL.md` into your `~/.claude/skills/storybook-guide/SKILL.md`
-2. Update the **Vault** path inside the skill to match where you cloned this repo
+```bash
+git clone https://github.com/noahzblue/storybook-research
+cd storybook-research
+./install.sh
+```
+
+The script copies the skill to `~/.claude/skills/storybook-guide/` and sets the vault path automatically. Restart Claude Code after installing.
 
 **How it works:**
 Once installed, Claude will automatically invoke the skill whenever you ask it to write, add, or audit Storybook stories. It routes to the correct guide based on your task and applies a story creation checklist.
