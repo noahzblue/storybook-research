@@ -1,0 +1,26 @@
+{
+  "name": "storybook-guide-skill",
+  "version": "1.0.0",
+  "description": "Claude Code skill for writing production-grade Storybook stories — based on BBC iPlayer research",
+  "bin": {
+    "storybook-guide-skill": "bin/install.js"
+  },
+  "files": [
+    "bin/",
+    "skill/",
+    "Guide/",
+    "bbc-reference/",
+    "00 - Master Plan.md"
+  ],
+  "keywords": [
+    "claude-code",
+    "skill",
+    "storybook",
+    "agent-skill",
+    "stories"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  }
+}
